@@ -99,7 +99,7 @@ const LISTINGS_DATA = [
       { label: "Sitting Room", image: "images/rooms/sitting-room.png", emoji: "🛋️" },
       { label: "Main Bedroom", image: "images/rooms/bedroom.png", emoji: "🛏️" },
       { label: "Kitchen", image: "images/rooms/kitchen.png", emoji: "🍳" },
-      { label: "Marina View", image: "images/rooms/marina-view.jpg", emoji: "🌊" }
+      { label: "Marina View", image: "images/rooms/marina-view.png", emoji: "🌊" }
     ]
   },
   {
