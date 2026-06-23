@@ -1,0 +1,53 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyBL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A2E22"/>
+      <stop offset="45%" stop-color="#1C1612"/>
+      <stop offset="100%" stop-color="#0E0D0C"/>
+    </linearGradient>
+    <radialGradient id="sunBL" cx="72%" cy="28%" r="20%">
+      <stop offset="0%" stop-color="#E0C088" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#E0C088" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#skyBL)"/>
+  <circle cx="580" cy="170" r="120" fill="url(#sunBL)"/>
+  <circle cx="580" cy="170" r="34" fill="#E0C088" opacity="0.85"/>
+
+  <!-- skyline silhouette -->
+  <g fill="#0E0D0C" opacity="0.75">
+    <rect x="0" y="320" width="60" height="180"/>
+    <rect x="70" y="280" width="45" height="220"/>
+    <rect x="125" y="340" width="55" height="160"/>
+    <rect x="190" y="250" width="40" height="250"/>
+    <rect x="240" y="300" width="65" height="200"/>
+    <rect x="320" y="220" width="38" height="280"/>
+    <rect x="365" y="310" width="50" height="190"/>
+    <rect x="640" y="290" width="50" height="210"/>
+    <rect x="700" y="330" width="60" height="170"/>
+    <rect x="430" y="350" width="180" height="150"/>
+  </g>
+
+  <!-- balcony railing (foreground) -->
+  <rect x="0" y="470" width="800" height="130" fill="#15120E"/>
+  <rect x="0" y="470" width="800" height="8" fill="#C9A368" opacity="0.5"/>
+  <g stroke="#C9A368" stroke-opacity="0.35" stroke-width="3">
+    <line x1="40" y1="478" x2="40" y2="600"/>
+    <line x1="120" y1="478" x2="120" y2="600"/>
+    <line x1="200" y1="478" x2="200" y2="600"/>
+    <line x1="600" y1="478" x2="600" y2="600"/>
+    <line x1="680" y1="478" x2="680" y2="600"/>
+    <line x1="760" y1="478" x2="760" y2="600"/>
+  </g>
+
+  <!-- chair silhouette -->
+  <g fill="#0E0D0C" opacity="0.9">
+    <rect x="300" y="500" width="14" height="60" rx="3"/>
+    <rect x="420" y="500" width="14" height="60" rx="3"/>
+    <rect x="290" y="480" width="150" height="22" rx="6"/>
+    <rect x="285" y="430" width="20" height="75" rx="6"/>
+  </g>
+
+  <text x="40" y="565" font-family="Georgia, serif" font-size="15" fill="#EDE8E0" opacity="0.5" letter-spacing="2">BALCONY VIEW</text>
+</svg>

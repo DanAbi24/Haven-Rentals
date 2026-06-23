@@ -1,0 +1,38 @@
+/* ===== DESIGN TOKENS ===== */
+:root {
+  /* Color */
+  --color-bg: #0E0D0C;
+  --color-bg-alt: #17150F;
+  --color-surface: #1C1A17;
+  --color-surface-raised: #232019;
+  --color-line: rgba(237, 232, 224, 0.1);
+  --color-line-strong: rgba(237, 232, 224, 0.18);
+
+  --color-text: #EDE8E0;
+  --color-text-dim: rgba(237, 232, 224, 0.62);
+  --color-text-faint: rgba(237, 232, 224, 0.38);
+
+  --color-gold: #C9A368;
+  --color-gold-bright: #E0C088;
+  --color-clay: #8B5A3C;
+
+  /* Type */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Scale */
+  --container-max: 1280px;
+  --container-pad: 6vw;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 18px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 0.25s;
+  --dur-med: 0.5s;
+  --dur-slow: 0.9s;
+}

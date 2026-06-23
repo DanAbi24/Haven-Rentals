@@ -1,0 +1,49 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgPL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C1A17"/>
+      <stop offset="100%" stop-color="#0E0D0C"/>
+    </linearGradient>
+    <linearGradient id="waterPL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E4A4A"/>
+      <stop offset="100%" stop-color="#162828"/>
+    </linearGradient>
+    <radialGradient name="glow" id="glowPL" cx="50%" cy="10%" r="60%">
+      <stop offset="0%" stop-color="#C9A368" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C9A368" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgPL)"/>
+  <rect width="800" height="600" fill="url(#glowPL)"/>
+
+  <!-- deck -->
+  <rect x="0" y="0" width="800" height="220" fill="#181510"/>
+  <g stroke="#0E0D0C" stroke-width="2" opacity="0.5">
+    <line x1="0" y1="60" x2="800" y2="60"/>
+    <line x1="0" y1="120" x2="800" y2="120"/>
+    <line x1="0" y1="180" x2="800" y2="180"/>
+  </g>
+
+  <!-- pool -->
+  <rect x="0" y="220" width="800" height="260" fill="url(#waterPL)"/>
+  <g stroke="#C9A368" stroke-opacity="0.18" stroke-width="2" fill="none">
+    <path d="M0 280 Q 200 260 400 280 T 800 280"/>
+    <path d="M0 340 Q 200 320 400 340 T 800 340"/>
+    <path d="M0 400 Q 200 380 400 400 T 800 400"/>
+  </g>
+  <rect x="0" y="220" width="800" height="6" fill="#C9A368" opacity="0.4"/>
+
+  <!-- deck below -->
+  <rect x="0" y="480" width="800" height="120" fill="#15120E"/>
+
+  <!-- loungers -->
+  <g fill="#0E0D0C" opacity="0.85">
+    <rect x="80" y="500" width="180" height="18" rx="8"/>
+    <rect x="80" y="480" width="60" height="22" rx="8"/>
+    <rect x="560" y="500" width="180" height="18" rx="8"/>
+    <rect x="680" y="480" width="60" height="22" rx="8"/>
+  </g>
+
+  <text x="40" y="565" font-family="Georgia, serif" font-size="15" fill="#EDE8E0" opacity="0.4" letter-spacing="2">POOL DECK</text>
+</svg>

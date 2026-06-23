@@ -1,0 +1,54 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyMV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A2A24"/>
+      <stop offset="40%" stop-color="#1C1612"/>
+      <stop offset="100%" stop-color="#0E0D0C"/>
+    </linearGradient>
+    <linearGradient id="waterMV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#26323A"/>
+      <stop offset="100%" stop-color="#10161A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#skyMV)"/>
+
+  <!-- sun/glow -->
+  <circle cx="400" cy="180" r="50" fill="#E0C088" opacity="0.5"/>
+
+  <!-- skyline -->
+  <g fill="#0E0D0C" opacity="0.85">
+    <rect x="0" y="260" width="55" height="130"/>
+    <rect x="65" y="220" width="40" height="170"/>
+    <rect x="120" y="280" width="50" height="110"/>
+    <rect x="630" y="240" width="48" height="150"/>
+    <rect x="690" y="270" width="60" height="120"/>
+    <rect x="200" y="300" width="400" height="90"/>
+  </g>
+
+  <!-- water -->
+  <rect x="0" y="390" width="800" height="210" fill="url(#waterMV)"/>
+  <g stroke="#C9A368" stroke-opacity="0.2" stroke-width="2" fill="none">
+    <path d="M0 430 Q 200 415 400 430 T 800 430"/>
+    <path d="M0 480 Q 200 465 400 480 T 800 480"/>
+    <path d="M0 530 Q 200 515 400 530 T 800 530"/>
+  </g>
+
+  <!-- light reflection -->
+  <rect x="380" y="390" width="40" height="200" fill="#E0C088" opacity="0.12"/>
+
+  <!-- boats -->
+  <g fill="#0E0D0C" opacity="0.9">
+    <path d="M120 410 L160 410 L150 425 L130 425 Z"/>
+    <line x1="140" y1="410" x2="140" y2="395" stroke="#0E0D0C" stroke-width="2"/>
+    <path d="M600 420 L650 420 L638 438 L612 438 Z"/>
+    <line x1="625" y1="420" x2="625" y2="400" stroke="#0E0D0C" stroke-width="2"/>
+  </g>
+
+  <!-- window frame foreground (viewing from inside) -->
+  <rect x="0" y="0" width="800" height="40" fill="#0E0D0C"/>
+  <rect x="0" y="0" width="30" height="600" fill="#0E0D0C"/>
+  <rect x="770" y="0" width="30" height="600" fill="#0E0D0C"/>
+
+  <text x="60" y="565" font-family="Georgia, serif" font-size="15" fill="#EDE8E0" opacity="0.5" letter-spacing="2">MARINA VIEW</text>
+</svg>

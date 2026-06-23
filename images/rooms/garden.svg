@@ -1,0 +1,59 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGD" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C1A17"/>
+      <stop offset="100%" stop-color="#0E0D0C"/>
+    </linearGradient>
+    <radialGradient id="glowGD" cx="50%" cy="10%" r="60%">
+      <stop offset="0%" stop-color="#C9A368" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#C9A368" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgGD)"/>
+  <rect width="800" height="600" fill="url(#glowGD)"/>
+
+  <!-- patio floor -->
+  <rect x="0" y="400" width="800" height="200" fill="#181510"/>
+  <g stroke="#0E0D0C" stroke-width="2" opacity="0.4">
+    <line x1="100" y1="400" x2="100" y2="600"/>
+    <line x1="250" y1="400" x2="250" y2="600"/>
+    <line x1="400" y1="400" x2="400" y2="600"/>
+    <line x1="550" y1="400" x2="550" y2="600"/>
+    <line x1="700" y1="400" x2="700" y2="600"/>
+  </g>
+
+  <!-- foliage border -->
+  <g fill="#445239" opacity="0.55">
+    <ellipse cx="60" cy="370" rx="70" ry="100"/>
+    <ellipse cx="740" cy="360" rx="80" ry="110"/>
+    <ellipse cx="120" cy="310" rx="40" ry="60"/>
+    <ellipse cx="680" cy="300" rx="45" ry="65"/>
+  </g>
+  <g fill="#5A6B4F" opacity="0.4">
+    <ellipse cx="30" cy="400" rx="50" ry="80"/>
+    <ellipse cx="770" cy="395" rx="55" ry="85"/>
+  </g>
+
+  <!-- table -->
+  <ellipse cx="400" cy="470" rx="100" ry="22" fill="#211D17"/>
+  <line x1="400" y1="492" x2="400" y2="560" stroke="#181510" stroke-width="8"/>
+
+  <!-- chairs -->
+  <g fill="#15120E">
+    <rect x="270" y="450" width="16" height="90" rx="4"/>
+    <rect x="255" y="430" width="46" height="18" rx="6"/>
+    <rect x="514" y="450" width="16" height="90" rx="4"/>
+    <rect x="499" y="430" width="46" height="18" rx="6"/>
+  </g>
+
+  <!-- string lights -->
+  <path d="M0 60 Q 200 110 400 60 T 800 60" stroke="#C9A368" stroke-opacity="0.3" stroke-width="2" fill="none"/>
+  <circle cx="100" cy="80" r="4" fill="#E0C088" opacity="0.7"/>
+  <circle cx="250" cy="95" r="4" fill="#E0C088" opacity="0.7"/>
+  <circle cx="400" cy="60" r="4" fill="#E0C088" opacity="0.7"/>
+  <circle cx="550" cy="95" r="4" fill="#E0C088" opacity="0.7"/>
+  <circle cx="700" cy="80" r="4" fill="#E0C088" opacity="0.7"/>
+
+  <text x="40" y="565" font-family="Georgia, serif" font-size="15" fill="#EDE8E0" opacity="0.4" letter-spacing="2">GARDEN PATIO</text>
+</svg>

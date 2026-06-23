@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haven Rentals — Stay Somewhere Unrepeatable</title>
+  <meta name="description" content="A small collection of considered apartments, each with its own character. Book a stay that feels like a place, not a transaction." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/listings.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a href="#" class="nav-mark">Haven<span class="nav-mark-dot">.</span></a>
+      <nav class="nav-links">
+        <a href="#stays">The Stays</a>
+        <a href="#about">Our Approach</a>
+        <a href="#contact">Enquire</a>
+      </nav>
+      <a href="#stays" class="nav-cta">
+        <span class="btn-text">View Stays</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <video class="hero-video" autoplay muted loop playsinline poster="images/hero-poster.jpg">
+      <source src="videos/hero-loop.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-scrim"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">A small collection of considered apartments</p>
+      <h1 class="hero-title">
+        Four walls,<br />
+        held with <em>intention.</em>
+      </h1>
+      <p class="hero-sub">
+        Six homes, each chosen for what it gives you back: light, quiet, a view worth waking up to.
+      </p>
+      <div class="hero-actions">
+        <a href="#stays" class="btn-primary">Browse the Stays</a>
+        <button class="hero-sound-toggle" id="soundToggle" aria-label="Toggle video sound" aria-pressed="false">
+          <svg class="icon-mute" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M11 5 6 9H2v6h4l5 4V5Z"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+          <span>Sound off</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-scroll-cue" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===== INTRO STRIP ===== -->
+  <section class="intro-strip" id="about">
+    <p class="intro-eyebrow">Our Approach</p>
+    <h2 class="intro-line">
+      We don't list properties. We keep a short record of places worth staying in —
+      <em>the light in the afternoon, the walk to the water, the quiet of the street at night.</em>
+    </h2>
+    <div class="intro-stats">
+      <div class="stat">
+        <span class="stat-num">06</span>
+        <span class="stat-label">Homes kept</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">04</span>
+        <span class="stat-label">Cities</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Visited in person</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LISTINGS ===== -->
+  <section class="listings" id="stays">
+    <div class="listings-header">
+      <p class="section-eyebrow">The Stays</p>
+      <h2 class="section-title">Walk through, before you book.</h2>
+      <p class="section-sub">Each home below is shown as it actually lives — room to room. Step through the carousel to see the sitting room, the bedroom, the kitchen, before you ever arrive.</p>
+    </div>
+
+    <div class="listings-grid" id="listingsGrid">
+      <!-- Listing cards injected by js/listings-data.js + js/listings.js -->
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / CLOSING ===== -->
+  <section class="closing" id="contact">
+    <div class="closing-inner">
+      <p class="section-eyebrow">Enquire</p>
+      <h2 class="closing-title">Can't decide? Tell us how you travel.</h2>
+      <p class="closing-sub">Three lines about who's coming and what you're after — we'll point you to the right door.</p>
+      <a href="mailto:stay@havenrentals.example" class="btn-primary">Write to Haven</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-mark">Haven<span class="nav-mark-dot">.</span></div>
+      <p class="footer-line">A small collection of considered apartments.</p>
+      <div class="footer-meta">
+        <span>&copy; <span id="year"></span> Haven Rentals</span>
+        <span>Built by DanAbi24</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== LIGHTBOX (room view) ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous room">&#8249;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next room">&#8250;</button>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <script src="js/listings-data.js"></script>
+  <script src="js/listings.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
