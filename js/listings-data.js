@@ -34,10 +34,10 @@ const LISTINGS_DATA = [
     bathrooms: 2,
     amenities: ["Fast WiFi", "Air Conditioning", "Generator Backup", "Free Parking"],
     rooms: [
-      { label: "Sitting Room", image: "images/rooms/sitting-room.svg", emoji: "🛋️" },
-      { label: "Bedroom", image: "images/rooms/bedroom.svg", emoji: "🛏️" },
-      { label: "Kitchen", image: "images/rooms/kitchen.svg", emoji: "🍳" },
-      { label: "Balcony View", image: "images/rooms/balcony.svg", emoji: "🌇" }
+      { label: "Sitting Room", image: "images/rooms/sitting-room.png", emoji: "🛋️" },
+      { label: "Bedroom", image: "images/rooms/bedroom.png", emoji: "🛏️" },
+      { label: "Kitchen", image: "images/rooms/kitchen.png", emoji: "🍳" },
+      { label: "Balcony View", image: "images/rooms/balcony.png", emoji: "🌇" }
     ]
   },
   {
@@ -55,10 +55,10 @@ const LISTINGS_DATA = [
     bathrooms: 3,
     amenities: ["Fast WiFi", "Pool Access", "Air Conditioning", "Daily Cleaning"],
     rooms: [
-      { label: "Sitting Room", image: "images/rooms/sitting-room.svg", emoji: "🛋️" },
-      { label: "Main Bedroom", image: "images/rooms/bedroom.svg", emoji: "🛏️" },
-      { label: "Kitchen", image: "images/rooms/kitchen.svg", emoji: "🍳" },
-      { label: "Pool Deck", image: "images/rooms/pool.svg", emoji: "🏊" }
+      { label: "Sitting Room", image: "images/rooms/sitting-room.png", emoji: "🛋️" },
+      { label: "Main Bedroom", image: "images/rooms/bedroom.png", emoji: "🛏️" },
+      { label: "Kitchen", image: "images/rooms/kitchen.png", emoji: "🍳" },
+      { label: "Pool Deck", image: "images/rooms/pool.png", emoji: "🏊" }
     ]
   },
   {
@@ -76,9 +76,9 @@ const LISTINGS_DATA = [
     bathrooms: 1,
     amenities: ["Fast WiFi", "Air Conditioning", "Workspace", "Free Parking"],
     rooms: [
-      { label: "Sitting Room", image: "images/rooms/sitting-room.svg", emoji: "🛋️" },
-      { label: "Bedroom", image: "images/rooms/bedroom.svg", emoji: "🛏️" },
-      { label: "Kitchenette", image: "images/rooms/kitchen.svg", emoji: "🍳" }
+      { label: "Sitting Room", image: "images/rooms/sitting-room.png", emoji: "🛋️" },
+      { label: "Bedroom", image: "images/rooms/bedroom.png", emoji: "🛏️" },
+      { label: "Kitchenette", image: "images/rooms/kitchen.png", emoji: "🍳" }
     ]
   },
   {
@@ -96,10 +96,10 @@ const LISTINGS_DATA = [
     bathrooms: 2,
     amenities: ["Fast WiFi", "Gym Access", "Air Conditioning", "24/7 Security"],
     rooms: [
-      { label: "Sitting Room", image: "images/rooms/sitting-room.svg", emoji: "🛋️" },
-      { label: "Main Bedroom", image: "images/rooms/bedroom.svg", emoji: "🛏️" },
-      { label: "Kitchen", image: "images/rooms/kitchen.svg", emoji: "🍳" },
-      { label: "Marina View", image: "images/rooms/marina-view.svg", emoji: "🌊" }
+      { label: "Sitting Room", image: "images/rooms/sitting-room.png", emoji: "🛋️" },
+      { label: "Main Bedroom", image: "images/rooms/bedroom.png", emoji: "🛏️" },
+      { label: "Kitchen", image: "images/rooms/kitchen.png", emoji: "🍳" },
+      { label: "Marina View", image: "images/rooms/marina-view.jpg", emoji: "🌊" }
     ]
   },
   {
@@ -117,10 +117,10 @@ const LISTINGS_DATA = [
     bathrooms: 1,
     amenities: ["Fast WiFi", "Garden Patio", "Generator Backup", "Free Parking"],
     rooms: [
-      { label: "Sitting Room", image: "images/rooms/sitting-room.svg", emoji: "🛋️" },
-      { label: "Bedroom", image: "images/rooms/bedroom.svg", emoji: "🛏️" },
-      { label: "Kitchen", image: "images/rooms/kitchen.svg", emoji: "🍳" },
-      { label: "Garden Patio", image: "images/rooms/garden.svg", emoji: "🌿" }
+      { label: "Sitting Room", image: "images/rooms/sitting-room.png", emoji: "🛋️" },
+      { label: "Bedroom", image: "images/rooms/bedroom.png", emoji: "🛏️" },
+      { label: "Kitchen", image: "images/rooms/kitchen.png", emoji: "🍳" },
+      { label: "Garden Patio", image: "images/rooms/garden.jpg", emoji: "🌿" }
     ]
   },
   {
@@ -138,9 +138,9 @@ const LISTINGS_DATA = [
     bathrooms: 1,
     amenities: ["Fast WiFi", "Rooftop Access", "Air Conditioning", "Workspace"],
     rooms: [
-      { label: "Sitting Room", image: "images/rooms/sitting-room.svg", emoji: "🛋️" },
-      { label: "Bedroom", image: "images/rooms/bedroom.svg", emoji: "🛏️" },
-      { label: "Kitchen", image: "images/rooms/kitchen.svg", emoji: "🍳" },
+      { label: "Sitting Room", image: "images/rooms/sitting-room.png", emoji: "🛋️" },
+      { label: "Bedroom", image: "images/rooms/bedroom.png", emoji: "🛏️" },
+      { label: "Kitchen", image: "images/rooms/kitchen.png", emoji: "🍳" },
       { label: "Rooftop", image: "images/rooms/rooftop.svg", emoji: "🌆" }
     ]
   }
