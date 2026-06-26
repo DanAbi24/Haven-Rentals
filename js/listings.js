@@ -125,18 +125,9 @@
 
       function goTo(index, immediate = false) {
         if (!slides.length || isTransitioning) return;
-        if (immediate) {
-          current = index;
-          track.style.transition = "none";
-          track.style.transform = `translateX(-${current * 100}%)`;
-          requestAnimationFrame(() => {
-            track.style.transition = "transform 0.55s var(--ease-out)";
-          });
-        } else {
-          current = index;
-          track.style.transition = "transform 0.55s var(--ease-out)";
-          track.style.transform = `translateX(-${current * 100}%)`;
-        }
+        current = index;
+        track.style.transition = immediate ? "none" : "transform 0.55s var(--ease-out)";
+        track.style.transform = `translateX(-${current * 100}%)`;
         updateDots();
       }
 
@@ -169,7 +160,8 @@
         dot.addEventListener("click", (e) => {
           e.stopPropagation();
           const targetIndex = parseInt(dot.dataset.dot, 10) + 1;
-          advance(targetIndex - current);
+          const direction = targetIndex - current;
+          if (direction !== 0) advance(direction);
         });
       });
 
