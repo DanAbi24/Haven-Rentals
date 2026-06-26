@@ -119,7 +119,7 @@
       }
 
       function goTo(index) {
-        if (!slides.length || isTransitioning) return;
+        if (!slides.length) return;
         current = index;
         track.style.transition = "transform 0.55s var(--ease-out)";
         track.style.transform = `translateX(-${current * 100}%)`;
@@ -132,15 +132,11 @@
         const nextIndex = current + direction;
         if (nextIndex < 0) {
           goTo(slides.length - 1);
-          isTransitioning = false;
-          return;
-        }
-        if (nextIndex >= slides.length) {
+        } else if (nextIndex >= slides.length) {
           goTo(0);
-          isTransitioning = false;
-          return;
+        } else {
+          goTo(nextIndex);
         }
-        goTo(nextIndex);
         window.setTimeout(() => {
           isTransitioning = false;
         }, 550);
