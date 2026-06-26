@@ -18,9 +18,22 @@
     return currency + amount.toLocaleString("en-NG");
   }
 
+  function preloadImage(src) {
+    if (!src) return;
+    const image = new Image();
+    image.src = src;
+    image.decoding = "async";
+  }
+
+  function preloadListingImages(listing) {
+    listing.rooms.forEach((room) => {
+      if (room.image) preloadImage(room.image);
+    });
+  }
+
   function roomSlideHTML(room, index, total) {
     const inner = room.image
-      ? `<img src="${room.image}" alt="${room.label}" loading="lazy" />`
+      ? `<img src="${room.image}" alt="${room.label}" loading="eager" decoding="async" />`
       : `<div class="carousel-fallback">${room.emoji || "🏠"}</div>`;
     return `
       <div class="carousel-slide" data-index="${index}">
@@ -87,6 +100,7 @@
     const grid = document.getElementById("listingsGrid");
     if (!grid) return;
     grid.innerHTML = LISTINGS_DATA.map(listingCardHTML).join("");
+    LISTINGS_DATA.forEach(preloadListingImages);
   }
 
   /* ---------- Per-card carousel logic ---------- */
@@ -100,7 +114,9 @@
       let current = 0;
 
       function goTo(index) {
-        current = (index + slides.length) % slides.length;
+        if (!slides.length) return;
+        current = index % slides.length;
+        if (current < 0) current += slides.length;
         track.style.transform = `translateX(-${current * 100}%)`;
         dots.forEach((d, i) => d.classList.toggle("active", i === current));
       }
