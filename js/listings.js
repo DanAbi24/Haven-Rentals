@@ -18,22 +18,15 @@
     return currency + amount.toLocaleString("en-NG");
   }
 
-  function preloadImage(src) {
-    if (!src) return;
-    const image = new Image();
-    image.src = src;
-    image.decoding = "async";
-  }
-
-  function preloadListingImages(listing) {
-    listing.rooms.forEach((room) => {
-      if (room.image) preloadImage(room.image);
-    });
-  }
-
-  function roomSlideHTML(room, index) {
+  function roomSlideHTML(room, index, isFirst) {
     const inner = room.image
-      ? `<img src="${room.image}" alt="${room.label}" loading="eager" decoding="async" />`
+      ? `<img
+            src="${room.image}"
+            alt="${room.label}"
+            loading="${isFirst ? 'eager' : 'lazy'}"
+            decoding="async"
+            fetchpriority="${isFirst ? 'high' : 'low'}"
+          />`
       : `<div class="carousel-fallback">${room.emoji || "🏠"}</div>`;
     return `
       <div class="carousel-slide" data-index="${index}">
@@ -47,8 +40,9 @@
       .map((_, i) => `<span class="carousel-dot${i === 0 ? " active" : ""}" data-dot="${i}"></span>`)
       .join("");
 
+    // First slide of first card loads eager+high priority, rest are lazy
     const slides = listing.rooms
-      .map((room, i) => roomSlideHTML(room, i))
+      .map((room, i) => roomSlideHTML(room, i, cardIndex === 0 && i === 0))
       .join("");
 
     const amenities = listing.amenities
@@ -61,8 +55,8 @@
         <div class="carousel-room-count">${listing.rooms.length} rooms</div>
         <div class="carousel-dots">${dots}</div>
         <div class="carousel-track" data-track>${slides}</div>
-        <button class="carousel-arrow prev" data-prev aria-label="Previous room">${"\u2039"}</button>
-        <button class="carousel-arrow next" data-next aria-label="Next room">${"\u203a"}</button>
+        <button class="carousel-arrow prev" data-prev aria-label="Previous room">&#8249;</button>
+        <button class="carousel-arrow next" data-next aria-label="Next room">&#8250;</button>
       </div>
 
       <div class="listing-info">
@@ -99,8 +93,7 @@
   function renderListings() {
     const grid = document.getElementById("listingsGrid");
     if (!grid) return;
-    grid.innerHTML = LISTINGS_DATA.map(listingCardHTML).join("");
-    LISTINGS_DATA.forEach(preloadListingImages);
+    grid.innerHTML = LISTINGS_DATA.map((listing, i) => listingCardHTML(listing, i)).join("");
   }
 
   /* ---------- Per-card carousel logic ---------- */
@@ -111,80 +104,88 @@
       const dots = Array.from(carousel.querySelectorAll(".carousel-dot"));
       const prevBtn = carousel.querySelector("[data-prev]");
       const nextBtn = carousel.querySelector("[data-next]");
+      const total = slides.length;
       let current = 0;
       let isTransitioning = false;
+
+      if (total <= 1) return;
 
       function updateDots() {
         dots.forEach((d, i) => d.classList.toggle("active", i === current));
       }
 
-      function goTo(index) {
-        if (!slides.length) return;
+      // Infinite wrap: jump instantly (no animation) then re-enable transition
+      function goTo(index, animated) {
+        if (animated === false) {
+          track.style.transition = "none";
+        } else {
+          track.style.transition = "transform 0.5s var(--ease-out)";
+        }
+        track.style.transform = `translateX(-${index * 100}%)`;
         current = index;
-        track.style.transition = "transform 0.55s var(--ease-out)";
-        track.style.transform = `translateX(-${current * 100}%)`;
         updateDots();
       }
 
-      function advance(direction) {
-        if (isTransitioning || slides.length <= 1) return;
+      function advance(dir) {
+        if (isTransitioning) return;
         isTransitioning = true;
-        const nextIndex = current + direction;
-        if (nextIndex < 0) {
-          goTo(slides.length - 1);
-        } else if (nextIndex >= slides.length) {
-          goTo(0);
-        } else {
-          goTo(nextIndex);
-        }
-        window.setTimeout(() => {
-          isTransitioning = false;
-        }, 550);
+
+        const next = (current + dir + total) % total;
+        goTo(next, true);
+
+        setTimeout(() => { isTransitioning = false; }, 520);
       }
 
-      prevBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        advance(-1);
-      });
-
-      nextBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        advance(1);
-      });
+      prevBtn.addEventListener("click", (e) => { e.stopPropagation(); advance(-1); });
+      nextBtn.addEventListener("click", (e) => { e.stopPropagation(); advance(1); });
 
       dots.forEach((dot) => {
         dot.addEventListener("click", (e) => {
           e.stopPropagation();
-          const targetIndex = parseInt(dot.dataset.dot, 10);
-          if (targetIndex !== current) {
-            goTo(targetIndex);
+          const target = parseInt(dot.dataset.dot, 10);
+          if (target !== current && !isTransitioning) {
+            isTransitioning = true;
+            goTo(target, true);
+            setTimeout(() => { isTransitioning = false; }, 520);
           }
         });
       });
 
-      // Click image (not arrows/dots) to open lightbox
+      // Lightbox on image click (not arrows/dots)
       carousel.addEventListener("click", (e) => {
-        if (e.target.closest("[data-prev]") || e.target.closest("[data-next]") || e.target.closest(".carousel-dot")) {
-          return;
-        }
+        if (
+          e.target.closest("[data-prev]") ||
+          e.target.closest("[data-next]") ||
+          e.target.closest(".carousel-dot")
+        ) return;
         const listingCard = carousel.closest(".listing-card");
-        const listingId = listingCard.dataset.listingId;
-        const listing = LISTINGS_DATA.find((l) => l.id === listingId);
+        const listing = LISTINGS_DATA.find((l) => l.id === listingCard.dataset.listingId);
         window.HavenLightbox.open(listing, current);
       });
 
-      // Basic swipe support
+      // Swipe support — uses advance() so wrapping works on mobile too
       let touchStartX = 0;
+      let touchStartY = 0;
       carousel.addEventListener("touchstart", (e) => {
         touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
       }, { passive: true });
 
       carousel.addEventListener("touchend", (e) => {
-        const delta = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(delta) > 40) {
-          delta > 0 ? goTo(current - 1) : goTo(current + 1);
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        // Only treat as horizontal swipe if clearly horizontal
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+          dx > 0 ? advance(-1) : advance(1);
         }
       }, { passive: true });
+
+      // Keyboard support when carousel is focused
+      carousel.setAttribute("tabindex", "0");
+      carousel.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") { e.preventDefault(); advance(-1); }
+        if (e.key === "ArrowRight") { e.preventDefault(); advance(1); }
+      });
     });
   }
 
@@ -204,7 +205,7 @@
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
     cards.forEach((c) => observer.observe(c));
   }
