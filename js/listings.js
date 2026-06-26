@@ -31,12 +31,12 @@
     });
   }
 
-  function roomSlideHTML(room, index, total, isRealSlide) {
+  function roomSlideHTML(room, index) {
     const inner = room.image
       ? `<img src="${room.image}" alt="${room.label}" loading="eager" decoding="async" />`
       : `<div class="carousel-fallback">${room.emoji || "🏠"}</div>`;
     return `
-      <div class="carousel-slide${isRealSlide ? "" : " carousel-slide-clone"}" data-index="${index}" data-real="${isRealSlide}">
+      <div class="carousel-slide" data-index="${index}">
         ${inner}
         <span class="carousel-slide-label">${room.label}</span>
       </div>`;
@@ -47,12 +47,9 @@
       .map((_, i) => `<span class="carousel-dot${i === 0 ? " active" : ""}" data-dot="${i}"></span>`)
       .join("");
 
-    const realRooms = listing.rooms;
-    const slides = [
-      roomSlideHTML(realRooms[realRooms.length - 1], -1, realRooms.length, false),
-      ...realRooms.map((room, i) => roomSlideHTML(room, i, realRooms.length, true)),
-      roomSlideHTML(realRooms[0], realRooms.length, realRooms.length, false)
-    ].join("");
+    const slides = listing.rooms
+      .map((room, i) => roomSlideHTML(room, i))
+      .join("");
 
     const amenities = listing.amenities
       .map((a) => `<span class="amenity-pill">${a}</span>`)
@@ -114,34 +111,37 @@
       const dots = Array.from(carousel.querySelectorAll(".carousel-dot"));
       const prevBtn = carousel.querySelector("[data-prev]");
       const nextBtn = carousel.querySelector("[data-next]");
-      const realSlideCount = slides.filter((slide) => slide.dataset.real === "true").length;
-      let current = 1;
+      let current = 0;
       let isTransitioning = false;
 
       function updateDots() {
-        const activeIndex = (current - 1 + realSlideCount) % realSlideCount;
-        dots.forEach((d, i) => d.classList.toggle("active", i === activeIndex));
+        dots.forEach((d, i) => d.classList.toggle("active", i === current));
       }
 
-      function goTo(index, immediate = false) {
+      function goTo(index) {
         if (!slides.length || isTransitioning) return;
         current = index;
-        track.style.transition = immediate ? "none" : "transform 0.55s var(--ease-out)";
+        track.style.transition = "transform 0.55s var(--ease-out)";
         track.style.transform = `translateX(-${current * 100}%)`;
         updateDots();
       }
 
       function advance(direction) {
-        if (isTransitioning) return;
+        if (isTransitioning || slides.length <= 1) return;
         isTransitioning = true;
-        const target = current + direction;
-        goTo(target);
+        const nextIndex = current + direction;
+        if (nextIndex < 0) {
+          goTo(slides.length - 1);
+          isTransitioning = false;
+          return;
+        }
+        if (nextIndex >= slides.length) {
+          goTo(0);
+          isTransitioning = false;
+          return;
+        }
+        goTo(nextIndex);
         window.setTimeout(() => {
-          if (target === 0) {
-            goTo(realSlideCount, true);
-          } else if (target === realSlideCount + 1) {
-            goTo(1, true);
-          }
           isTransitioning = false;
         }, 550);
       }
@@ -159,9 +159,10 @@
       dots.forEach((dot) => {
         dot.addEventListener("click", (e) => {
           e.stopPropagation();
-          const targetIndex = parseInt(dot.dataset.dot, 10) + 1;
-          const direction = targetIndex - current;
-          if (direction !== 0) advance(direction);
+          const targetIndex = parseInt(dot.dataset.dot, 10);
+          if (targetIndex !== current) {
+            goTo(targetIndex);
+          }
         });
       });
 
