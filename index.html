@@ -10,14 +10,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Preload hero poster so it shows instantly before video loads -->
-  <link rel="preload" as="image" href="images/hero-poster.jpg">
-
-  <!-- Preload first listing's first room image (above-the-fold after scroll) -->
+  <!-- Preload first listing's first room image -->
   <link rel="preload" as="image" href="images/rooms/sitting-room.png">
 
-  <!-- Fonts with display=swap so text shows immediately while fonts load -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/variables.css" />
@@ -45,7 +45,7 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="home">
-    <video class="hero-video" autoplay muted loop playsinline poster="images/hero-poster.jpg">
+    <video class="hero-video" autoplay muted loop playsinline>
       <source src="videos/hero-loop.mp4" type="video/mp4" />
     </video>
     <div class="hero-scrim"></div>
@@ -136,7 +136,7 @@
     </div>
   </footer>
 
-  <!-- ===== LIGHTBOX (room view) ===== -->
+  <!-- ===== LIGHTBOX ===== -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
     <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous room">&#8249;</button>
@@ -145,6 +145,7 @@
     <div class="lightbox-caption" id="lightboxCaption"></div>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/listings-data.js"></script>
   <script src="js/listings.js"></script>
   <script src="js/main.js"></script>
