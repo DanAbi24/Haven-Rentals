@@ -5,10 +5,10 @@
 (function () {
   const SVG = {
     location: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
-    guests:   `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    bed:      `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/></svg>`,
-    bath:     `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-2.5 1V9"/><path d="M4 9h18v3a8 8 0 0 1-8 8H10a8 8 0 0 1-8-8Z"/><line x1="6" y1="20" x2="6" y2="22"/><line x1="18" y1="20" x2="18" y2="22"/></svg>`,
-    star:     `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 15 9 22 9.5 16.7 14.2 18.3 21 12 17.3 5.7 21 7.3 14.2 2 9.5 9 9Z"/></svg>`
+    guests: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    bed: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/></svg>`,
+    bath: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-2.5 1V9"/><path d="M4 9h18v3a8 8 0 0 1-8 8H10a8 8 0 0 1-8-8Z"/><line x1="6" y1="20" x2="6" y2="22"/><line x1="18" y1="20" x2="18" y2="22"/></svg>`,
+    star: `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 15 9 22 9.5 16.7 14.2 18.3 21 12 17.3 5.7 21 7.3 14.2 2 9.5 9 9Z"/></svg>`
   };
 
   function formatPrice(amount, currency) {
@@ -76,12 +76,6 @@
             Request to Book
           </a>
         </div>
-
-        <!-- Map -->
-        <div class="listing-map-wrap">
-          <div class="listing-map" id="map-${listing.id}" data-lat="${listing.coords[0]}" data-lng="${listing.coords[1]}" data-name="${listing.name}"></div>
-          <span class="listing-map-label">${SVG.location} Map</span>
-        </div>
       </div>
     </article>`;
   }
@@ -92,80 +86,41 @@
     grid.innerHTML = LISTINGS_DATA.map((listing, i) => listingCardHTML(listing, i)).join("");
   }
 
-  /* ---------- Leaflet maps — one per listing ---------- */
-  function initMaps() {
-    if (typeof L === "undefined") return;
-
-    // Dark tile layer using CartoDB dark matter (free, no API key)
-    const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_matter/{z}/{x}/{y}{r}.png";
-    const ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>';
-
-    // Gold custom marker icon
-    const goldIcon = L.divIcon({
-      className: "",
-      html: `<div class="haven-pin">
-               <svg width="28" height="36" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <path d="M14 0C6.27 0 0 6.27 0 14c0 9.625 14 22 14 22S28 23.625 28 14C28 6.27 21.73 0 14 0z" fill="#C9A368"/>
-                 <circle cx="14" cy="14" r="5" fill="#0E0D0C"/>
-               </svg>
-             </div>`,
-      iconSize: [28, 36],
-      iconAnchor: [14, 36],
-    });
-
-    document.querySelectorAll(".listing-map").forEach((el) => {
-      const lat  = parseFloat(el.dataset.lat);
-      const lng  = parseFloat(el.dataset.lng);
-      const name = el.dataset.name;
-
-      const map = L.map(el, {
-        center: [lat, lng],
-        zoom: 14,
-        zoomControl: false,
-        scrollWheelZoom: false,
-        dragging: false,
-        doubleClickZoom: false,
-        attributionControl: false,
-      });
-
-      L.tileLayer(TILE_URL, { attribution: ATTR, maxZoom: 19 }).addTo(map);
-
-      L.marker([lat, lng], { icon: goldIcon })
-        .addTo(map)
-        .bindPopup(`<strong>${name}</strong>`, { className: "haven-popup" });
-
-      // Enable drag/scroll on click so user can explore
-      el.addEventListener("click", () => {
-        if (!map.dragging.enabled()) {
-          map.dragging.enable();
-          map.scrollWheelZoom.enable();
-        }
-      });
-    });
-  }
-
-  /* ---------- Clone-based infinite carousel ---------- */
+  /* ---------- Clone-based infinite carousel ----------
+   *
+   * Layout after cloning:
+   *   [clone of LAST] [slide 0] [slide 1] ... [slide N-1] [clone of FIRST]
+   *
+   * We start positioned at index 1 (the real first slide).
+   * When user lands on the clone-of-LAST  (index 0)      → snap to real LAST  (index N)
+   * When user lands on the clone-of-FIRST (index N+1)    → snap to real FIRST (index 1)
+   * Snap = instant reposition with no transition, invisible to the user.
+   */
   function initCarousels() {
     document.querySelectorAll("[data-carousel]").forEach((carousel) => {
-      const track   = carousel.querySelector("[data-track]");
-      const dots    = Array.from(carousel.querySelectorAll(".carousel-dot"));
-      const prevBtn = carousel.querySelector("[data-prev]");
-      const nextBtn = carousel.querySelector("[data-next]");
+      const track    = carousel.querySelector("[data-track]");
+      const dots     = Array.from(carousel.querySelectorAll(".carousel-dot"));
+      const prevBtn  = carousel.querySelector("[data-prev]");
+      const nextBtn  = carousel.querySelector("[data-next]");
 
       const realSlides = Array.from(track.querySelectorAll(".carousel-slide"));
       const total      = realSlides.length;
       if (total <= 1) return;
 
+      // --- Build clone sandwich ---
       const firstClone = realSlides[0].cloneNode(true);
       const lastClone  = realSlides[total - 1].cloneNode(true);
       firstClone.setAttribute("aria-hidden", "true");
-      lastClone.setAttribute("aria-hidden", "true");
-      track.appendChild(firstClone);
-      track.prepend(lastClone);
+      lastClone.setAttribute("aria-hidden",  "true");
+      track.appendChild(firstClone);   // goes after real last
+      track.prepend(lastClone);         // goes before real first
 
-      let position = 1;
+      // Total slides in DOM = total + 2 clones
+      // Real slides live at positions 1 … total  (0-indexed inside track)
+      let position = 1; // start on real first slide
       let isTransitioning = false;
 
+      // real slide index (0-based) from DOM position
       function realIndex(pos) {
         return ((pos - 1) % total + total) % total;
       }
@@ -181,15 +136,20 @@
         dots.forEach((d, i) => d.classList.toggle("active", i === ri));
       }
 
+      // Start without animation at position 1
       setPosition(1, false);
       updateDots();
 
+      // After each animated move, check if we landed on a clone and snap
       track.addEventListener("transitionend", () => {
         isTransitioning = false;
+
         if (position === 0) {
+          // Landed on clone-of-last → snap to real last
           setPosition(total, false);
           updateDots();
         } else if (position === total + 1) {
+          // Landed on clone-of-first → snap to real first
           setPosition(1, false);
           updateDots();
         }
@@ -209,7 +169,7 @@
         dot.addEventListener("click", (e) => {
           e.stopPropagation();
           if (isTransitioning) return;
-          const target = parseInt(dot.dataset.dot, 10) + 1;
+          const target = parseInt(dot.dataset.dot, 10) + 1; // +1 because of prepended clone
           if (target !== position) {
             isTransitioning = true;
             setPosition(target, true);
@@ -218,18 +178,26 @@
         });
       });
 
+      // Lightbox on image click (not controls)
       carousel.addEventListener("click", (e) => {
-        if (e.target.closest("[data-prev]") || e.target.closest("[data-next]") || e.target.closest(".carousel-dot")) return;
+        if (
+          e.target.closest("[data-prev]") ||
+          e.target.closest("[data-next]") ||
+          e.target.closest(".carousel-dot")
+        ) return;
         const listingCard = carousel.closest(".listing-card");
         const listing = LISTINGS_DATA.find((l) => l.id === listingCard.dataset.listingId);
         window.HavenLightbox.open(listing, realIndex(position));
       });
 
-      let touchStartX = 0, touchStartY = 0;
+      // Swipe
+      let touchStartX = 0;
+      let touchStartY = 0;
       carousel.addEventListener("touchstart", (e) => {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
       }, { passive: true });
+
       carousel.addEventListener("touchend", (e) => {
         const dx = e.changedTouches[0].clientX - touchStartX;
         const dy = e.changedTouches[0].clientY - touchStartY;
@@ -238,6 +206,7 @@
         }
       }, { passive: true });
 
+      // Keyboard
       carousel.setAttribute("tabindex", "0");
       carousel.addEventListener("keydown", (e) => {
         if (e.key === "ArrowLeft")  { e.preventDefault(); advance(-1); }
@@ -270,7 +239,6 @@
   document.addEventListener("DOMContentLoaded", () => {
     renderListings();
     initCarousels();
-    initMaps();
     initScrollReveal();
   });
 })();
